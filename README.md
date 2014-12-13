@@ -6,13 +6,13 @@ The main additions I've added is that this compiles for both 32 and 64 bit. Addi
 
 The first example in the post sets a breakpoint in hello.asm. To run (and compile) it:
 
-```sh
+```bash
 $ make run_manual
 ```
 
 The second example uses a nice library Eli built that wraps ptrace for debugging. To run (and compile) it:
 
-```sh
+```bash
 $ make run_with_lib
 ```
 
