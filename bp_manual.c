@@ -42,8 +42,7 @@ void run_debugger(pid_t child_pid)
     procmsg("Original data at 0x%08x: 0x%08x\n", addr, data);
 
     /* Write the trap instruction 'int 3' into the address */
-    TODO FIX
-    unsigned data_with_trap = (data & 0xFFFFFF00) | 0xCC;
+    unsigned data_with_trap = (data & ~(0xFF)) | 0xCC;
     ptrace(PTRACE_POKETEXT, child_pid, (void*)addr, (void*)data_with_trap);
 
     /* See what's there again... */

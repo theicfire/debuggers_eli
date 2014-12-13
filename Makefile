@@ -11,7 +11,6 @@ with_lib:
 with_lib_clean:
 	rm -f *.o bp_use_lib traced_c_loop
 
-
 run: all
 	./bp_use_lib traced_c_loop
 
@@ -22,9 +21,11 @@ else # 32 bit
 	nasm -f elf32 -o hello.o hello.asm
 endif
 	ld -o hello hello.o
+	gcc -Wall -Wextra -std=c99 -c debuglib.c
+	gcc -Wall -Wextra -std=c99 -o bp_manual bp_manual.c debuglib.o
 
 manual_clean:
-	rm -f *.o hello
+	rm -f *.o hello bp_manual
 
 .PHONY : clean
 clean : manual_clean with_lib_clean
