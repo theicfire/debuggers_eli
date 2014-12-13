@@ -5,6 +5,9 @@ all:
 
 	gcc -Wall -Wextra -std=c99 -o traced_c_loop traced_c_loop.c
 
+run: all
+	./bp_use_lib traced_c_loop
+
 .PHONY : clean
 clean :
 	rm -f *.o bp_use_lib
