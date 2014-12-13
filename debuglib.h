@@ -6,6 +6,26 @@
 #include <sys/types.h>
 
 
+/* Finding out if we're 64 bit or 32 bit */
+// Check windows
+#if _WIN32 || _WIN64
+#if _WIN64
+#define ENVIRONMENT64
+#else
+#define ENVIRONMENT32
+#endif
+#endif
+
+// Check GCC
+#if __GNUC__
+#if __x86_64__ || __ppc64__
+#define ENVIRONMENT64
+#else
+#define ENVIRONMENT32
+#endif
+#endif
+
+
 /* Print out a message, prefixed by the process ID.
 */
 void procmsg(const char* format, ...);

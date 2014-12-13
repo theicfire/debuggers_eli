@@ -29,7 +29,11 @@ void run_debugger(pid_t child_pid)
     procmsg("child now at EIP = 0x%08x\n", get_child_eip(child_pid));
 
     /* Create breakpoint and run to it*/
+#ifdef ENVIRONMENT32
     debug_breakpoint* bp = create_breakpoint(child_pid, (void*)0x8048414);
+#else
+    debug_breakpoint* bp = create_breakpoint(child_pid, (void*)0x400544);
+#endif
     procmsg("breakpoint created\n");
     ptrace(PTRACE_CONT, child_pid, 0, 0);
     wait(0);
