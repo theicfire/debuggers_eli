@@ -1,6 +1,6 @@
-# Code for "How debuggers work: Part 2 - Breakpoints"
+# Code for "How debuggers work: Part 3 - Debugging information"
 
-This is the code for http://eli.thegreenplace.net/2011/01/27/how-debuggers-work-part-2-breakpoints
+This is the code for http://eli.thegreenplace.net/2011/02/07/how-debuggers-work-part-3-debugging-information
 
 The main additions I've added is that this compiles for both 32 and 64 bit. Additionally, there's a nice Makefile that should get you up and running faster.
 
