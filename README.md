@@ -5,13 +5,10 @@ This is the code for http://eli.thegreenplace.net/2011/01/27/how-debuggers-work-
 The main additions I've added is that this compiles for both 32 and 64 bit. Additionally, there's a nice Makefile that should get you up and running faster.
 
 ###Prerequisites
-You'll need `nasm`
+1. You'll need `nasm` (Ubuntu: `sudo apt-get install nasm`).
+2. You also need to make sure that the breakpoints are correct. This varies per computer. 
 
-* Ubuntu: `sudo apt-get install nasm`
-
-You also need to make sure that the breakpoints are correct. This varies per computer. 
-
-**For the first example:**
+**Correct breakpoints for the first example:**
 
 * `$ make`
 * `$ objdump -d hello`
@@ -30,7 +27,7 @@ You also need to make sure that the breakpoints are correct. This varies per com
 #endif
 ```
 
-**For the second example:**
+**Correct breakpoints for the second example:**
 
 * `$ make`
 * `$ objdump -d hello`
