@@ -11,7 +11,7 @@ with_lib:
 with_lib_clean:
 	rm -f *.o bp_use_lib traced_c_loop
 
-run: all
+run_with_lib: with_lib
 	./bp_use_lib traced_c_loop
 
 manual:
@@ -26,6 +26,9 @@ endif
 
 manual_clean:
 	rm -f *.o hello bp_manual
+
+run_manual: manual
+	./bp_manual hello
 
 .PHONY : clean
 clean : manual_clean with_lib_clean

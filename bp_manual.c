@@ -34,15 +34,23 @@ void run_debugger(pid_t child_pid)
 
     /* Obtain and show child's instruction pointer */
     ptrace(PTRACE_GETREGS, child_pid, 0, &regs);
+#ifdef ENVIRONMENT32
     procmsg("Child started. EIP = 0x%08x\n", regs.eip);
+#else
+    procmsg("Child started. RIP = 0x%08x\n", regs.rip);
+#endif
 
     /* Look at the word at the address we're interested in */
-    unsigned addr = 0x8048096;
-    unsigned data = ptrace(PTRACE_PEEKTEXT, child_pid, (void*)addr, 0);
+#ifdef ENVIRONMENT32
+    long addr = 0x8048096;
+#else
+    long addr = 0x4000c6;
+#endif
+    long data = ptrace(PTRACE_PEEKTEXT, child_pid, (void*)addr, 0);
     procmsg("Original data at 0x%08x: 0x%08x\n", addr, data);
 
     /* Write the trap instruction 'int 3' into the address */
-    unsigned data_with_trap = (data & ~(0xFF)) | 0xCC;
+    long data_with_trap = (data & ~(0xFF)) | 0xCC;
     ptrace(PTRACE_POKETEXT, child_pid, (void*)addr, (void*)data_with_trap);
 
     /* See what's there again... */
@@ -65,7 +73,11 @@ void run_debugger(pid_t child_pid)
 
     /* See where the child is now */
     ptrace(PTRACE_GETREGS, child_pid, 0, &regs);
+#ifdef ENVIRONMENT32
     procmsg("Child stopped at EIP = 0x%08x\n", regs.eip);
+#else
+    procmsg("Child stopped at RIP = 0x%08x\n", regs.rip);
+#endif
 
     /* Remove the breakpoint by restoring the previous data
     ** at the target address, and unwind the EIP back by 1 to 
@@ -73,7 +85,11 @@ void run_debugger(pid_t child_pid)
     ** there.
     */
     ptrace(PTRACE_POKETEXT, child_pid, (void*)addr, (void*)data);
+#ifdef ENVIRONMENT32
     regs.eip -= 1;
+#else
+    regs.rip -= 1;
+#endif
     ptrace(PTRACE_SETREGS, child_pid, 0, &regs);
 
     /* The child can continue running now */
