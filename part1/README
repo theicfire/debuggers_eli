@@ -1,0 +1,5 @@
+Code for http://eli.thegreenplace.net/2011/01/23/how-debuggers-work-part-1/
+
+Has a different assembly file.
+
+Only works for 64 bit. To get this running in 32 bit is probably as easy as changing "rip" references to "eip". And then copying Eli's assembly program.
