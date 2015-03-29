@@ -76,7 +76,7 @@ void dump_process_memory(pid_t pid, unsigned from_addr, unsigned to_addr)
 */
 struct debug_breakpoint_t {
     void* addr;
-    unsigned orig_data;
+    unsigned long orig_data;
 };
 
 
@@ -97,7 +97,7 @@ static void enable_breakpoint(pid_t pid, debug_breakpoint* bp)
 static void disable_breakpoint(pid_t pid, debug_breakpoint* bp)
 {
     assert(bp);
-    unsigned data = ptrace(PTRACE_PEEKTEXT, pid, bp->addr, 0);
+    unsigned long data = ptrace(PTRACE_PEEKTEXT, pid, bp->addr, 0);
     assert((data & 0xFF) == 0xCC);
     ptrace(PTRACE_POKETEXT, pid, bp->addr, (data & ~(0xFF)) | (bp->orig_data & 0xFF));
 }
